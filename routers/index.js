@@ -19,9 +19,9 @@ const homeControoller=require('../controller/ControllerCrud')
 
 
 router.get('/',homeControoller.home)
-router.get('/adddata',ImageUploads,homeControoller.AddMovie)
-// router.post('/adddata',ImageUploads,homeControoller.AddMovie)
-
-
+router.get('/add',homeControoller.AddMovie)
+router.post('/moviepost',ImageUploads,homeControoller.AddMoviePost)
+router.get('/edit',homeControoller.EditGet)
+router.post('/editdata',ImageUploads,homeControoller.EditPost)
 
 module.exports=router

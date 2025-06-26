@@ -15,12 +15,13 @@
     body {
       background: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d') no-repeat center center/cover;
       font-family: 'Orbitron', sans-serif;
-      min-height: 100vh;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 40px 10px;
       color: #fff;
+
     }
 
     .form-wrapper {
@@ -33,6 +34,7 @@
       max-width: 1000px;
       backdrop-filter: blur(12px);
       box-shadow: 0 0 25px rgba(255, 0, 100, 0.3);
+      height: 100vh;
     }
 
     .form-left, .form-right {
@@ -119,12 +121,15 @@
     <div class="form-right">
       <form class="movie_form" id="movieForm" action="/moviepost" method="POST" enctype="multipart/form-data">
         <h2>🎬 Add New Movie</h2>
-        <input type="text" class="movie_input" id="title" placeholder="Movie Title" required />
-        <input type="text" class="movie_input" id="yearDirector" placeholder="Year, Director" required />
-        <input type="text" class="movie_input" id="duration" placeholder="Duration (min)" required />
-        <input type="text" class="movie_input" id="genres" placeholder="Genres (comma separated)" required />
-        <textarea class="textarea" id="description" placeholder="Movie Description" required></textarea>
-        <input type="file" class="movie_input" id="imageUrl" placeholder="Poster Image URL" required />
+        <input type="text" name="title" class="movie_input" id="title" placeholder="Movie Title" required />
+       <input type="url" name="url" class="movie_input" id="url" placeholder="Movie URL" required />
+
+        <input type="text" name="year" class="movie_input" id="year" placeholder="Year" required />
+        <input type="text" name="director" class="movie_input" id="director" placeholder="Director" required />
+        <input type="text" name="duration" class="movie_input" id="duration" placeholder="Duration (min)" required />
+        <input type="text" name="genres" class="movie_input" id="genres" placeholder="Genres (comma separated)" required />
+        <textarea name="description"  class="textarea" id="description" placeholder="Movie Description" required></textarea>
+        <input type="file" class="movie_input" name="image" id="imageUrl" placeholder="Poster Image URL" required />
         <button type="submit" class="submit_btn">Add Movie</button>
       </form>
     </div>

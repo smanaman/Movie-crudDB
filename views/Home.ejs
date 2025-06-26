@@ -3,230 +3,661 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<style>
-    @import url("https://fonts.googleapis.com/css?family=Montserrat:300,400,700,800");
+    <title>MovieFlix - Premium Movie Collection</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700,800" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-}
+        body {
+            background: #0f0f0f;
+            font-family: "Montserrat", helvetica, arial, sans-serif;
+            color: white;
+        }
 
-html,
-body {
-  margin: 0;
-  background: black;
-  font-family: "Montserrat", helvetica, arial, sans-serif;
-  font-size: 14px;
-  font-weight: 400;
-}
+        /* Header Styles */
+        header {
+            background: linear-gradient(to right, #000000, #1a1a1a);
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
 
-.movie_card {
-  position: relative;
-  display: block;
-  width: 800px;
-  height: 350px;
-  margin: 100px auto;
-  overflow: hidden;
-  border-radius: 10px;
-  transition: all 0.4s;
-  &:hover {
-    transform: scale(1.02);
-    transition: all 0.4s;
-  }
-  .info_section {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background-blend-mode: multiply;
-    z-index: 2;
-    border-radius: 10px;
-    .movie_header {
-      position: relative;
-      padding: 25px;
-      height: 40%;
-      h1 {
-        color: #fff;
-        font-weight: 400;
-      }
-      h4 {
-        color: #9ac7fa;
-        font-weight: 400;
-      }
-      .minutes {
-        display: inline-block;
-        margin-top: 10px;
-        color: #fff;
-        padding: 5px;
-        border-radius: 5px;
-        border: 1px solid rgba(255, 255, 255, 0.13);
-      }
-      .type {
-        display: inline-block;
-        color: #cee4fd;
-        margin-left: 10px;
-      }
-      .locandina {
-        position: relative;
-        float: left;
-        margin-right: 20px;
-        height: 120px;
-        box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.5);
-      }
-    }
-    .movie_desc {
-      padding: 25px;
-      height: 50%;
-      .text {
-        color: #cfd6e1;
-      }
-    }
-    .movie_social {
-      height: 10%;
-      padding-left: 15px;
-      padding-bottom: 20px;
-      ul {
-        list-style: none;
-        padding: 0;
-        li {
-          display: inline-block;
-          color: rgba(255, 255, 255, 0.4);
-          transition: color 0.3s;
-          transition-delay: 0.15s;
-          margin: 0 10px;
-          &:hover {
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            color: #e50914;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: white;
+        }
+
+        .search-container {
+            display: flex;
+            width: 40%;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px 0 0 25px;
+            background: #2c2c2c;
+            color: white;
+            font-size: 16px;
+        }
+
+        .search-container button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 0 25px 25px 0;
+            background: #e50914;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .search-container button:hover {
+            background: #b2070f;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #e50914;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 70vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://image.tmdb.org/t/p/original/wwemzKWzjKYJFfCeiB57q3r4Bcm.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 80px;
+            margin-bottom: 50px;
+        }
+
+        .hero h1 {
+            font-size: 60px;
+            margin-bottom: 20px;
+            font-weight: 800;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 600px;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+        }
+
+        .hero-btn {
+            padding: 12px 30px;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .play-btn {
+            background: #e50914;
+            color: white;
+            border: none;
+        }
+
+        .play-btn:hover {
+            background: #b2070f;
+        }
+
+        .info-btn {
+            background: rgba(109, 109, 110, 0.7);
+            color: white;
+            border: none;
+        }
+
+        .info-btn:hover {
+            background: rgba(109, 109, 110, 0.5);
+        }
+
+        /* Filter Section */
+        .filter-section {
+            padding: 20px 50px;
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .filter-section::-webkit-scrollbar {
+            display: none;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            border-radius: 20px;
+            background: #2c2c2c;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: #e50914;
+        }
+
+        /* Movie Cards Section */
+        .movies-container {
+            padding: 20px 50px;
+        }
+
+        .section-title {
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .movie_card {
+            position: relative;
+            display: block;
+            width: 800px;
+            height: 350px;
+            margin: 40px auto;
+            background-size: cover;
+            background-position: right;
+            background-repeat: no-repeat;
+            overflow: hidden;
+            border-radius: 10px;
+            transition: all 0.4s;
+            box-shadow: 0px 0px 150px -45px rgba(19, 160, 134, 0.6);
+        }
+
+        .movie_card:hover {
+            transform: scale(1.02);
+            transition: all 0.4s;
+            box-shadow: 0px 0px 120px -55px rgba(19, 160, 134, 0.6);
+        }
+
+        .info_section {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-blend-mode: multiply;
+            z-index: 2;
+            border-radius: 10px;
+        }
+
+        .movie_header {
+            position: relative;
+            padding: 25px;
+            height: 40%;
+        }
+
+        .movie_header h1 {
+            color: #fff;
+            font-weight: 400;
+            font-size: 36px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+        }
+
+        .movie_header h4 {
+            color: #9ac7fa;
+            font-weight: 400;
+            margin-top: 10px;
+        }
+
+        .minutes {
+            display: inline-block;
+            margin-top: 15px;
+            color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.13);
+            font-size: 12px;
+        }
+
+        .type {
+            display: inline-block;
+            color: #cee4fd;
+            margin-left: 10px;
+            font-size: 12px;
+        }
+
+        .locandina {
+            position: relative;
+            float: left;
+            margin-right: 20px;
+            height: 120px;
+            box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.5);
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .locandina:hover {
+            transform: scale(1.05);
+        }
+
+        .movie_desc {
+            padding: 25px;
+            height: 50%;
+        }
+
+        .text {
+            color: #cfd6e1;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .movie_social {
+            height: 10%;
+            padding-left: 15px;
+            padding-bottom: 20px;
+        }
+
+        .movie_social ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .movie_social li {
+            display: inline-block;
+            color: rgba(255, 255, 255, 0.4);
             transition: color 0.3s;
+            transition-delay: 0.15s;
+            margin: 0 10px;
+        }
+
+        .movie_social li:hover {
             color: rgba(255, 255, 255, 0.8);
-          }
-          i {
+        }
+
+        .movie_social i {
             font-size: 19px;
             cursor: pointer;
-          }
         }
-      }
-    }
-  }
-  .blur_back {
-    position: absolute;
-    top: 0;
-    z-index: 1;
-    height: 100%;
-    right: 0;
-    background-size: cover;
-    border-radius: 11px;
-  }
-}
 
-@media screen and (min-width: 768px) {
-  .movie_header {
-    width: 60%;
-  }
+        .blur_back {
+            position: absolute;
+            top: 0;
+            z-index: 1;
+            height: 100%;
+            right: 0;
+            background-size: cover;
+            border-radius: 11px;
+        }
 
-  .movie_desc {
-    width: 50%;
-  }
+        .rating {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: #f5c518;
+            font-weight: bold;
+            font-size: 18px;
+        }
 
-  .info_section {
-    background: linear-gradient(to right, #0d0d0c 50%, transparent 100%);
-  }
+        /* Action Buttons */
+        .movie_actions {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+        }
 
-  .blur_back {
-    width: 80%;
-    background-position: -100% 10% !important;
-  }
-}
+        .action-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
 
-@media screen and (max-width: 768px) {
-  .movie_card {
-    width: 95%;
-    margin: 70px auto;
-    min-height: 350px;
-    height: auto;
-  }
+        .action-btn:hover {
+            transform: scale(1.1);
+        }
 
-  .blur_back {
-    width: 100%;
-    background-position: 50% 50% !important;
-  }
+        .edit-btn:hover {
+            background: #3498db;
+        }
 
-  .movie_header {
-    width: 100%;
-    margin-top: 85px;
-  }
+        .delete-btn:hover {
+            background: #e74c3c;
+        }
 
-  .movie_desc {
-    width: 100%;
-  }
+        .action-btn i {
+            font-size: 18px;
+        }
 
-  .info_section {
-    background: linear-gradient(to top, rgb(20, 20, 19) 50%, transparent 100%);
-    display: inline-grid;
-  }
-}
+        /* Footer */
+        footer {
+            background: #000;
+            padding: 50px;
+            text-align: center;
+            margin-top: 50px;
+        }
 
-#bright {
-  box-shadow: 0px 0px 150px -45px rgba(255, 51, 0, 0.5);
-  &:hover {
-    box-shadow: 0px 0px 120px -55px rgba(255, 51, 0, 0.5);
-  }
-}
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
 
-.bright_back {
-  background: url("https://occ-0-2433-448.1.nflxso.net/art/cd5c9/3e192edf2027c536e25bb5d3b6ac93ced77cd5c9.jpg");
-}
+        .footer-links a {
+            color: #757575;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
 
-#tomb {
-  box-shadow: 0px 0px 150px -45px rgba(19, 160, 134, 0.6);
-  &:hover {
-    box-shadow: 0px 0px 120px -55px rgba(19, 160, 134, 0.6);
-  }
-}
+        .footer-links a:hover {
+            color: #e50914;
+        }
 
-.tomb_back {
-  background: url("https://fsmedia.imgix.net/cd/c9/5e/ba/4817/4d9a/93f0/c776ec32ecbc/lara-crofts-neck-looks-unnatural-in-the-new-poster-for-tomb-raider.png");
-}
+        .social-icons {
+            margin-bottom: 30px;
+        }
 
-#ave {
-  box-shadow: 0px 0px 150px -45px rgba(199, 147, 75, 0.7);
-  margin-bottom: 200px;
-  &:hover {
-    box-shadow: 0px 0px 120px -55px rgba(199, 147, 75, 0.7);
-  }
-}
+        .social-icons a {
+            color: #757575;
+            margin: 0 15px;
+            font-size: 24px;
+            transition: all 0.3s;
+        }
 
-.ave_back {
-  background: url("https://www.gannett-cdn.com/-mm-/c03fd140debe8ad4c05cf81a5cad7ad61a12ce52/c=0-1580-2985-3266&r=x803&c=1600x800/local/-/media/2017/06/09/USATODAY/USATODAY/636326272873599176-Black-Panther-Teaser.jpg");
-}
+        .social-icons a:hover {
+            color: #e50914;
+        }
 
-</style>
+        .copyright {
+            color: #757575;
+            font-size: 14px;
+        }
+
+        /* Responsive Styles */
+        @media screen and (min-width: 768px) {
+            .movie_header {
+                width: 60%;
+            }
+
+            .movie_desc {
+                width: 50%;
+            }
+
+            .info_section {
+                background: linear-gradient(to right, #0d0d0c 50%, transparent 100%);
+            }
+
+            .blur_back {
+                width: 80%;
+                background-position: -100% 10% !important;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            header {
+                padding: 15px 20px;
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .search-container {
+                width: 100%;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .hero {
+                padding: 0 20px;
+                height: 60vh;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .movie_card {
+                width: 95%;
+                margin: 70px auto;
+                min-height: 350px;
+                height: auto;
+            }
+
+            .blur_back {
+                width: 100%;
+                background-position: 50% 50% !important;
+            }
+
+            .movie_header {
+                width: 100%;
+                margin-top: 85px;
+            }
+
+            .movie_desc {
+                width: 100%;
+            }
+
+            .info_section {
+                background: linear-gradient(to top, rgb(20, 20, 19) 50%, transparent 100%);
+                display: inline-grid;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .movie_card {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #e50914;
+            border-radius: 10px;
+        }
+    </style>
+</head>
 <body>
- 
-<div class="movie_card" id="tomb">
-  <div class="info_section">
-    <div class="movie_header">
-      <img class="locandina" src="https://mr.comingsoon.it/imgdb/locandine/235x336/53750.jpg" />
-      <h1>Tomb Raider</h1>
-      <h4>2018, Roar Uthaug</h4>
-      <span class="minutes">125 min</span>
-      <p class="type">Action, Fantasy</p>
-    </div>
-    <div class="movie_desc">
-      <p class="text">
-        Lara Croft, the fiercely independent daughter of a missing adventurer, must push herself beyond her limits when she finds herself on the island where her father disappeared.
-      </p>
-    </div>
-    <div class="movie_social">
-      <ul>
-        <li><i class="material-icons">share</i></li>
-        <li><i class="material-icons"></i></li>
-        <li><i class="material-icons">chat_bubble</i></li>
-      </ul>
-    </div>
-  </div>
-  <div class="blur_back tomb_back"></div>
-</div>
+    <header>
+        <div class="logo">Movie<span>Flix</span></div>
+        <div class="search-container">
+            <input type="text" placeholder="Search for movies...">
+            <button><i class="material-icons">search</i></button>
+        </div>
+        <div class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">Movies</a>
+            <a href="#">TV Shows</a>
+            <a href="#">My List</a>
+        </div>
+    </header>
 
+    <section class="hero">
+        <h1>Unlimited Movies, TV Shows, and More.</h1>
+        <p>Watch anywhere. Cancel anytime. Ready to watch? Enter your email to create or restart your membership.</p>
+        <div class="hero-buttons">
+            <button class="hero-btn play-btn"><i class="material-icons" style="vertical-align: middle; margin-right: 5px;">play_arrow</i> Play</button>
+            <button class="hero-btn info-btn"><i class="material-icons" style="vertical-align: middle; margin-right: 5px;">info</i> More Info</button>
+        </div>
+    </section>
 
+    <div class="filter-section">
+        <button class="filter-btn active">All</button>
+        <button class="filter-btn">Action</button>
+        <button class="filter-btn">Adventure</button>
+        <button class="filter-btn">Comedy</button>
+        <button class="filter-btn">Drama</button>
+        <button class="filter-btn">Horror</button>
+        <button class="filter-btn">Sci-Fi</button>
+        <button class="filter-btn">Thriller</button>
+        <button class="filter-btn">Romance</button>
+        <button class="filter-btn">Animation</button>
+    </div>
+
+    <div class="movies-container">
+        <h2 class="section-title">Featured Movies</h2>
+        
+        <% AllMovieData.map((movie) => { %>
+        <div class="movie_card" id="ave" style="background-image: url('<%= movie.url %>');">
+            <div class="info_section">
+                <div class="movie_header">
+                    <img class="locandina" src="<%= movie.image %>" />
+                    <h1><%= movie.title %></h1>
+                    <h4><%= movie.year %>, <%= movie.director %></h4>
+                    <span class="minutes"><%= movie.duration %> min</span>
+                    <p class="type"><%= movie.genres.join(', ') %></p>
+                </div>
+                <div class="movie_desc">
+                    <p class="text">
+                        <%= movie.description %>
+                    </p>
+                </div>
+                <div class="movie_social">
+                    <ul>
+                        <li><i class="material-icons">share</i></li>
+                        <li><i class="fas fa-heart"></i></li>
+                        <li><i class="fas fa-bookmark"></i></li>
+                        <li><i class="material-icons">chat_bubble</i></li>
+                    </ul>
+                </div>
+                <!-- Edit and Delete Buttons -->
+                <div class="movie_actions">
+                   <a href="/edit?id=<%=movie.id%>"> <button class="action-btn edit-btn" ><i class="fas fa-edit"></i></button></a>
+                    <button class="action-btn delete-btn">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="rating">8/10</div>
+        </div>
+        <% }) %>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="#">Home</a>
+            <a href="#">Movies</a>
+            <a href="#">TV Shows</a>
+            <a href="#">New Releases</a>
+            <a href="#">My List</a>
+            <a href="#">Account</a>
+        </div>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+        <div class="copyright">
+            © 2023 MovieFlix. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        // Simple filter functionality
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelector('.filter-btn.active').classList.remove('active');
+                btn.classList.add('active');
+                console.log(`Filtering by: ${btn.textContent}`);
+            });
+        });
+
+        // Search functionality
+        document.querySelector('.search-container button').addEventListener('click', () => {
+            const searchTerm = document.querySelector('.search-container input').value;
+            if (searchTerm) {
+                console.log(`Searching for: ${searchTerm}`);
+            }
+        });
+
+        // Hero buttons
+        document.querySelector('.play-btn').addEventListener('click', () => {
+            alert('Playing featured content!');
+        });
+
+        document.querySelector('.info-btn').addEventListener('click', () => {
+            alert('Showing more info about featured content!');
+        });
+
+        // Like button functionality
+        document.querySelectorAll('.fa-heart').forEach(heart => {
+            heart.addEventListener('click', function() {
+                this.classList.toggle('liked');
+                this.style.color = this.classList.contains('liked') ? '#e50914' : 'rgba(255, 255, 255, 0.4)';
+            });
+        });
+
+        // Bookmark button functionality
+        document.querySelectorAll('.fa-bookmark').forEach(bookmark => {
+            bookmark.addEventListener('click', function() {
+                this.classList.toggle('bookmarked');
+                this.style.color = this.classList.contains('bookmarked') ? '#f5c518' : 'rgba(255, 255, 255, 0.4)';
+            });
+        });
+
+    
+    </script>
 </body>
 </html>
