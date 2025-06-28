@@ -23,5 +23,5 @@ router.get('/add',homeControoller.AddMovie)
 router.post('/moviepost',ImageUploads,homeControoller.AddMoviePost)
 router.get('/edit',homeControoller.EditGet)
 router.post('/editdata',ImageUploads,homeControoller.EditPost)
-
+router.get('/deletdata',homeControoller.DeletData)
 module.exports=router

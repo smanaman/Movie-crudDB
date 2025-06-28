@@ -45,10 +45,39 @@ const MovieDataEdit=await MovieData.findById(id)
     res.render('EditData',{MovieDataEdit})
 
 }
-const EditPost=(req,res)=>{
+const EditPost=async(req,res)=>{
 const id=req.query.id
 console.log(id);
+let image=''
+if(req.file){
+    const oldImage = await MovieData.findById(id)
 
+    fs.unlinkSync(oldImage.image)
+    image = req.file.path
+}
+const { title, url, year, director, duration, genres, description } = req.body
+await MovieData.findByIdAndUpdate(id,{
+    title,
+    url,
+    year,
+    director,
+    duration,
+    genres,
+    description,
+    image
+})
+res.redirect('/')
+
+}
+const DeletData=async(req,res)=>{
+
+const id=req.query.id
+
+let deldata=await MovieData.findByIdAndDelete(id)
+
+fs.unlinkSync(deldata.image)
+
+res.redirect('/')
 }
 
 module.exports = {
@@ -56,5 +85,6 @@ module.exports = {
     AddMovie,
     AddMoviePost,
     EditGet,
-    EditPost
+    EditPost,
+    DeletData
 }
